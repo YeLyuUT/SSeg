@@ -5,6 +5,7 @@ from datasets import cityscapes
 from datasets import mapillary
 from datasets import kitti
 from datasets import camvid
+from datasets import uavid
 import torchvision.transforms as standard_transforms
 
 import transforms.joint_transforms as joint_transforms
@@ -28,6 +29,10 @@ def setup_loaders(args):
             args.val_batch_size = args.bs_mult * args.ngpu
     elif args.dataset == 'mapillary':
         args.dataset_cls = mapillary
+        args.train_batch_size = args.bs_mult * args.ngpu
+        args.val_batch_size = 4
+    elif args.dataset == 'uavid':
+        args.dataset_cls = uavid
         args.train_batch_size = args.bs_mult * args.ngpu
         args.val_batch_size = 4
     elif args.dataset == 'ade20k':
@@ -166,6 +171,27 @@ def setup_loaders(args):
             test=args.test_mode)
         val_set = args.dataset_cls.Mapillary(
             'semantic', 'val',
+            joint_transform_list=val_joint_transform_list,
+            transform=val_input_transform,
+            target_transform=target_transform,
+            test=False)
+    elif args.dataset == 'uavid':
+        eval_size = 1536
+        val_joint_transform_list = [
+            joint_transforms.ResizeHeight(eval_size),
+            joint_transforms.CenterCropPad(eval_size, ignore_index=args.dataset_cls.ignore_label)]
+        train_set = args.dataset_cls.UAVid(
+            'semantic', 'train',
+            joint_transform_list=train_joint_transform_list,
+            transform=train_input_transform,
+            target_transform=target_train_transform,
+            dump_images=args.dump_augmentation_images,
+            class_uniform_pct=args.class_uniform_pct,
+            class_uniform_tile=args.class_uniform_tile,
+            test=args.test_mode)
+        # TODO HACK 'val' set to 'train' due to .
+        val_set = args.dataset_cls.UAVid(
+            'semantic', 'train',
             joint_transform_list=val_joint_transform_list,
             transform=val_input_transform,
             target_transform=target_transform,

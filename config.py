@@ -64,17 +64,19 @@ __C.STRICTBORDERCLASS = None
 #Attribute Dictionary for Dataset
 __C.DATASET = AttrDict()
 #Cityscapes Dir Location
-__C.DATASET.CITYSCAPES_DIR = ''
+__C.DATASET.CITYSCAPES_DIR = './data/cityscapes'
 #SDC Augmented Cityscapes Dir Location
-__C.DATASET.CITYSCAPES_AUG_DIR = ''
+__C.DATASET.CITYSCAPES_AUG_DIR = './data/cityscapes_aug'
 #Mapillary Dataset Dir Location
 __C.DATASET.MAPILLARY_DIR = ''
+#UAVID Dataset Dir Location
+__C.DATASET.UAVID_DIR = './data/uavid'
 #Kitti Dataset Dir Location
 __C.DATASET.KITTI_DIR = ''
 #SDC Augmented Kitti Dataset Dir Location
 __C.DATASET.KITTI_AUG_DIR = ''
 #Camvid Dataset Dir Location
-__C.DATASET.CAMVID_DIR = ''
+__C.DATASET.CAMVID_DIR = './data/camvid'
 #Number of splits to support
 __C.DATASET.CV_SPLITS = 3
 

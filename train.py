@@ -180,8 +180,7 @@ def main():
         train(train_loader, net, optim, epoch, writer)
         if args.apex:
             train_loader.sampler.set_epoch(epoch + 1)
-        validate(val_loader, net, criterion_val,
-                 optim, epoch, writer)
+        #validate(val_loader, net, criterion_val, optim, epoch, writer)
         if args.class_uniform_pct:
             if epoch >= args.max_cu_epoch:
                 train_obj.build_epoch(cut=True)

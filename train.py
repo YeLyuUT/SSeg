@@ -7,7 +7,7 @@ import argparse
 import logging
 import os
 import torch
-from apex import amp
+#from apex import amp
 
 from config import cfg, assert_and_infer_cfg
 from utils.misc import AverageMeter, prep_experiment, evaluate_eval, fast_hist
